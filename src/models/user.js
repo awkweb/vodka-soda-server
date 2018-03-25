@@ -1,24 +1,27 @@
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: {
-      type: DataTypes.STRING,
       allowNull: false,
-      isEmail: true,
-    },
-    facebookAccessToken: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    facebookId: {
-      allowNull: false,
-      type: DataTypes.BIGINT,
-    },
-    gender: {
-      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     name: {
       allowNull: false,
       type: DataTypes.STRING,
+    },
+    age: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    gender: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    deletedAt: {
+      type: DataTypes.DATE
     },
   });
 
