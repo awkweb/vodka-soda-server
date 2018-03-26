@@ -26,77 +26,114 @@ SECRET_KEY = os.environ['DJ_SECRET_KEY']
 # Application definition
 
 INSTALLED_APPS = [
-  'django.contrib.admin',
-  'django.contrib.auth',
-  'django.contrib.contenttypes',
-  'django.contrib.sessions',
-  'django.contrib.messages',
-  'django.contrib.staticfiles',
-  'rest_framework',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'server.api',
+    'rest_framework',
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
 ]
 
 MIDDLEWARE = [
-  'django.middleware.security.SecurityMiddleware',
-  'django.contrib.sessions.middleware.SessionMiddleware',
-  'django.middleware.common.CommonMiddleware',
-  'django.middleware.csrf.CsrfViewMiddleware',
-  'django.contrib.auth.middleware.AuthenticationMiddleware',
-  'django.contrib.messages.middleware.MessageMiddleware',
-  'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
-  {
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [],
-    'APP_DIRS': True,
-    'OPTIONS': {
-      'context_processors': [
-        'django.template.context_processors.debug',
-        'django.template.context_processors.request',
-        'django.contrib.auth.context_processors.auth',
-        'django.contrib.messages.context_processors.messages',
-      ],
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+            ],
+        },
     },
-  },
 ]
 
 WSGI_APPLICATION = 'server.wsgi.application'
 
+# Django REST Framework Social Oauth2
+# See https://github.com/PhilipGarnero/django-rest-framework-social-oauth2
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
+    ),
+}
+
+AUTHENTICATION_BACKENDS = (
+    # Facebook OAuth2
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    # django-rest-framework-social-oauth2
+    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+
+    # Django
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.12'
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ['DJ_SOCIAL_AUTH_FACEBOOK_KEY']
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['DJ_SOCIAL_AUTH_FACEBOOK_SECRET']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email, age_range'
+}
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+AUTH_USER_MODEL = 'api.User'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': os.environ['DJ_DB_NAME'],
-    'USER': os.environ['DJ_DB_USER'],
-    'PASSWORD': os.environ['DJ_DB_PASSWORD'],
-    'HOST': os.environ['DJ_DB_HOST'],
-    'PORT': os.environ['DJ_DB_PORT'],
-  },
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': os.environ['DJ_DB_NAME'],
+        'USER': os.environ['DJ_DB_USER'],
+        'PASSWORD': os.environ['DJ_DB_PASSWORD'],
+        'HOST': os.environ['DJ_DB_HOST'],
+        'PORT': os.environ['DJ_DB_PORT'],
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-  {
-    'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-  },
-  {
-    'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-  },
-  {
-    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-  },
-  {
-    'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-  },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 
