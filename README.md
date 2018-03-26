@@ -19,7 +19,7 @@ Install tools and dependencies (optional):
 # Install [virtualenv-burrito](https://github.com/brainsik/virtualenv-burrito) (optional)
 > curl -sL https://raw.githubusercontent.com/brainsik/virtualenv-burrito/master/virtualenv-burrito.sh | $SHELL
 
-# Create a virtualenv and python deps
+# Create a virtualenv and install python deps
 > mkvirtualenv -p /usr/local/bin/python3.6 vodka-soda-server
 > workon vodka-soda-server
 (vodka-soda-server) > pip install -r requirements.txt
@@ -40,7 +40,7 @@ export DJ_SOCIAL_AUTH_FACEBOOK_SECRET=3731939d837s7b1b0b772a64c7570edb
 
 Create database:
 
-```
+```bash
 (vodka-soda-server) > python manage.py makemigrations
 ```
 
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
 
 Migrate and create an admin user
 
-```
+```bash
 (vodka-soda-server) > python manage.py migrate
 # Create an admin user
 (vodka-soda-server) > python manage.py createsuperuser --email tom@meagher.co --username admin

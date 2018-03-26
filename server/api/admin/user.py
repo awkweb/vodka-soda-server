@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, UserLocation
+from server.api.models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -24,8 +24,3 @@ class CustomUserAdmin(UserAdmin):
     )
     UserAdmin.fieldsets[1][1]['fields'] = personal_info
     fieldsets = UserAdmin.fieldsets
-
-
-@admin.register(UserLocation)
-class UserLocationAdmin(admin.ModelAdmin):
-    pass

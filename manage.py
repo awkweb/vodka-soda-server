@@ -3,8 +3,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-  settings = "server.settings.dev" if os.environ['DJ_DB_HOST'] == 'localhost' else "server.settings.prod"
-  os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
+  os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
   try:
     from django.core.management import execute_from_command_line
   except ImportError as exc:
