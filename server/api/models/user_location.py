@@ -20,5 +20,10 @@ class UserLocation(models.Model):
         on_delete=models.CASCADE,
     )
 
+    class Meta:
+        db_table = 'api_user_location'
+        verbose_name = "user location"
+        verbose_name_plural = "user locations"
+
     def __str__(self):
         return self

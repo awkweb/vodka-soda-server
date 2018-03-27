@@ -47,8 +47,8 @@ Create database:
 Update migration file (`migrations/0001_initial.py`) to [create extension for `postgis`](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/postgis/#creating-a-spatial-database):
 
 ```python
+...
 from django.contrib.postgres.operations import CreateExtension
-from django.db import migrations
 
 class Migration(migrations.Migration):
 
