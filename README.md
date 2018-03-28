@@ -4,13 +4,14 @@
 
 ## Set Up Local Dev Environment
 
-Install tools and dependencies (optional):
+Install tools and dependencies:
 
 ```bash
 # Install [homebrew](https://brew.sh/)
 > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 > brew tap homebrew/bundle
 > brew bundle
+# Note: brew bundle installs deps from Brewfile (like PostGIS)
 
 # Install [pyenv](https://github.com/pyenv/pyenv) (optional)
 > brew install pyenv
@@ -84,11 +85,15 @@ Whenever you make changes to a model, the database needs to be kept in sync.
 > python manage.py migrate
 ```
 
-See [Django Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/) for more info.
+See [Django Migrations Worflow](https://docs.djangoproject.com/en/2.0/topics/migrations/#workflow) for more info.
 
 ## Helpful links
 
++ [Django OAuth Toolkit with Django REST Framework Tutorial](https://django-oauth-toolkit.readthedocs.io/en/latest/rest-framework/rest-framework.html)
 + [Django REST Framework Social Oauth2 Facebook Example](https://github.com/PhilipGarnero/django-rest-framework-social-oauth2#facebook-example)
 + [GeoDjango Installation](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/)
 + [GeoDjango Tutorial](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/tutorial/)
 + [Installing PostGIS](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/postgis/)
++ [Facebook Developer Access Tokens](https://developers.facebook.com/tools/accesstoken/)
++ [Facebook App Dashboard](https://developers.facebook.com/apps/234319953810299/dashboard/)
++ [Tinder API](https://gist.github.com/rtt/10403467)
