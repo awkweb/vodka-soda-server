@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from server.api.models import UserLocation
+from rest_framework import mixins
 
 
 class UserLocationSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = UserLocation
         fields = (
@@ -11,4 +13,7 @@ class UserLocationSerializer(serializers.ModelSerializer):
             'lon',
             'lat',
             'point',
+        )
+        write_only_fields = (
+            'user',
         )

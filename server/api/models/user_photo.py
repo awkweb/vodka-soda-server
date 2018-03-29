@@ -3,9 +3,13 @@ from django.contrib.auth import get_user_model
 
 
 class UserPhoto(models.Model):
-    created_at = models.DateField(
-        auto_now_add=True
+    created_at = models.DateTimeField(
+        auto_now_add=True,
     )
+    hidden = models.BooleanField(
+        default=False,
+    )
+    order = models.IntegerField()
     url = models.URLField()
     user = models.ForeignKey(
         to=get_user_model(),
@@ -15,8 +19,24 @@ class UserPhoto(models.Model):
 
     class Meta:
         db_table = 'api_user_photo'
-        verbose_name = 'user photo'
-        verbose_name_plural = 'user photos'
+        verbose_name = 'photo'
+        verbose_name_plural = 'photos'
+        ordering = ['order']
 
     def __str__(self):
-        return self.id
+        return f'{self.id}'
+
+    @staticmethod
+    def has_read_permission(request):
+        return True
+
+    def has_object_read_permission(self, request):
+        return True
+
+    @staticmethod
+    def has_write_permission(self):
+        return True
+
+    def has_object_write_permission(self, request):
+        return request.user == self.user
+

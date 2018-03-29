@@ -35,9 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'server.api',
     'rest_framework',
+    'rest_framework_gis',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
+    'dry_rest_permissions',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +82,9 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -101,6 +106,18 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email, age_range'
 }
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'server.api.utils.save_profile',
+)
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 AUTH_USER_MODEL = 'api.User'
 

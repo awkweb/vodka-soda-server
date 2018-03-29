@@ -91,6 +91,7 @@ See [Django Migrations Worflow](https://docs.djangoproject.com/en/2.0/topics/mig
 
 + [Django OAuth Toolkit with Django REST Framework Tutorial](https://django-oauth-toolkit.readthedocs.io/en/latest/rest-framework/rest-framework.html)
 + [Django REST Framework Social Oauth2 Facebook Example](https://github.com/PhilipGarnero/django-rest-framework-social-oauth2#facebook-example)
++ [dry-rest-permissions](https://github.com/dbkaplan/dry-rest-permissions)
 + [GeoDjango Installation](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/)
 + [GeoDjango Tutorial](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/tutorial/)
 + [Installing PostGIS](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/postgis/)

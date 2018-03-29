@@ -1,19 +1,20 @@
 from django.contrib.gis.db import models
 from django.contrib.auth import get_user_model
+from dry_rest_permissions.generics import allow_staff_or_superuser
 
 
 class UserLocation(models.Model):
-    created_at = models.DateField(
+    created_at = models.DateTimeField(
         auto_now_add=True
     )
     lon = models.FloatField(
-        verbose_name='longitude'
+        verbose_name='longitude',
     )
     lat = models.FloatField(
-        verbose_name='latitude'
+        verbose_name='latitude',
     )
     point = models.PointField(
-        srid=32140
+        srid=4326,
     )
     user = models.ForeignKey(
         to=get_user_model(),
@@ -23,8 +24,23 @@ class UserLocation(models.Model):
 
     class Meta:
         db_table = 'api_user_location'
-        verbose_name = 'user location'
-        verbose_name_plural = 'user locations'
+        verbose_name = 'location'
+        verbose_name_plural = 'locations'
 
     def __str__(self):
-        return self.id
+        return f'{self.id}'
+
+    @staticmethod
+    def has_read_permission(request):
+        return True
+
+    def has_object_read_permission(self, request):
+        return True
+
+    @staticmethod
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    def has_create_permission(request):
+        return True
