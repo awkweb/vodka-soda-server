@@ -1,9 +1,13 @@
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
-from server.api.serializers import UserPhotoSerializer, UserSerializer
+
+from server.api.serializers import (
+    UserPhotoSerializer, UserSerializer
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -12,6 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
 
     permission_classes = (
+        IsAuthenticated,
         DRYPermissions,
     )
     queryset = get_user_model().objects.all()\

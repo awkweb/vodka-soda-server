@@ -1,6 +1,5 @@
 from django.contrib.gis.db import models
 from django.contrib.auth import get_user_model
-from dry_rest_permissions.generics import allow_staff_or_superuser
 
 
 class UserLocation(models.Model):

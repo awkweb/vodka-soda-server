@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from .user_location import UserLocationSerializer
 from .user_photo import UserPhotoSerializer
 

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.humanize.templatetags.humanize import naturaltime
+
 from server.api.models import UserPhoto
 
 
