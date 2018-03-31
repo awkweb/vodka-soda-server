@@ -102,9 +102,13 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.12'
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ['DJ_SOCIAL_AUTH_FACEBOOK_KEY']
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['DJ_SOCIAL_AUTH_FACEBOOK_SECRET']
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
+SOCIAL_AUTH_FACEBOOK_SCOPE = (
+    'email',
+    'public_profile',
+    'user_birthday',
+)
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email, age_range'
+    'fields': 'id, name, email, age_range',
 }
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',

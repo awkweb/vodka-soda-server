@@ -8,12 +8,13 @@ GENDERS = (
 
 
 class User(AbstractUser):
-    age = models.IntegerField(
-      null=True,
-    )
     bio = models.CharField(
+        blank=True,
         max_length=140,
         null=True,
+    )
+    birth_date = models.DateTimeField(
+        null=True
     )
     display_name = models.CharField(
         max_length=30,

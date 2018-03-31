@@ -4,15 +4,11 @@ def save_profile(backend, user, response, *args, **kwargs):
     """
 
     if backend.name == 'facebook':
-        print(user, response, user.first_name)
+        print(user, response)
         user.display_name = user.first_name
         age_range = response.get('age_range')
-        age_range_min = age_range.get('min')
-        age_range_max = age_range.get('max')
-        if age_range_min == age_range_max or age_range_max is None:
-            user.age = age_range_min
-        else:
-            user.age = (age_range_max + age_range_min) / 2
+        age_range_min = age_range.get('min')  # for verifying user is older than 18
+        user_birthday = response.get('user_birthday')  # for auto-populating user birth_date field
         user.save()
         return {
             'user': user

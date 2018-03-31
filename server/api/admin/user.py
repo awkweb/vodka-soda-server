@@ -43,7 +43,7 @@ class CustomUserAdmin(UserAdmin):
 
     personal_info = UserAdmin.fieldsets[1][1]['fields'] + (
       'display_name',
-      'age',
+      'birth_date',
       'gender',
       'bio',
     )
