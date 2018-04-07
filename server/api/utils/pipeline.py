@@ -4,7 +4,6 @@ def save_profile(backend, user, response, *args, **kwargs):
     """
 
     if backend.name == 'facebook':
-        print(user, response)
         user.display_name = user.first_name
         age_range = response.get('age_range')
         age_range_min = age_range.get('min')  # for verifying user is older than 18

@@ -1,7 +1,9 @@
 from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.timezone import now
 
 GENDERS = (
+    (-1, 'other'),
     (0, 'male'),
     (1, 'female'),
 )
@@ -11,14 +13,12 @@ class User(AbstractUser):
     bio = models.CharField(
         blank=True,
         max_length=140,
-        null=True,
     )
     birth_date = models.DateTimeField(
-        null=True
+        default=now,
     )
     display_name = models.CharField(
         max_length=30,
-        null=True,
     )
     gender = models.IntegerField(
         default=0,
@@ -28,6 +28,11 @@ class User(AbstractUser):
         default=False,
         help_text="Designates whether this user should be visible to other users. Select this to hide from all users."
     )
+
+    REQUIRED_FIELDS = [
+        'email',
+        'display_name',
+    ]
 
     @staticmethod
     def has_read_permission(request):

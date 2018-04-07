@@ -10,8 +10,7 @@ Install tools and dependencies:
 # Install [homebrew](https://brew.sh/)
 > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 > brew tap homebrew/bundle
-> brew bundle
-# Note: brew bundle installs deps from Brewfile (like PostGIS)
+> brew bundle  # installs deps from Brewfile (like PostGIS)
 
 # Install [pyenv](https://github.com/pyenv/pyenv) (optional)
 > brew install pyenv
