@@ -1,0 +1,31 @@
+version: '2'
+services:
+    django:
+        container_name: django
+        restart: always
+        build: ./django
+        command: uwsgi --ini uwsgi.ini
+        expose:
+            - 8000
+        volumes:
+            - ./django:/home/django
+        environment:
+            - DJ_ENV=$DJ_ENV
+            - DJ_DB_NAME=$DJ_DB_NAME
+            - DJ_DB_USER=$DJ_DB_USER
+            - DJ_DB_PASSWORD=$DJ_DB_PASSWORD
+            - DJ_DB_HOST=$DJ_DB_HOST
+            - DJ_DB_PORT=$DJ_DB_PORT
+            - DJ_SECRET_KEY=$DJ_SECRET_KEY
+            - DJ_SOCIAL_AUTH_FACEBOOK_KEY=$DJ_SOCIAL_AUTH_FACEBOOK_KEY
+            - DJ_SOCIAL_AUTH_FACEBOOK_SECRET=$DJ_SOCIAL_AUTH_FACEBOOK_SECRET
+    nginx:
+        container_name: nginx
+        restart: always
+        build: ./nginx
+        ports:
+            - 80:80
+        volumes_from:
+            - django
+        depends_on:
+            - django

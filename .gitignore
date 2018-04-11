@@ -8,6 +8,8 @@ __pycache__/
 
 # Django stuff:
 *.log
+static/
+*.sock
 
 # pyenv
 .python-version

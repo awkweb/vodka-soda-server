@@ -18,6 +18,7 @@ class User(AbstractUser):
         default=now,
     )
     display_name = models.CharField(
+        blank=True,
         max_length=30,
     )
     gender = models.IntegerField(
@@ -28,11 +29,6 @@ class User(AbstractUser):
         default=False,
         help_text="Designates whether this user should be visible to other users. Select this to hide from all users."
     )
-
-    REQUIRED_FIELDS = [
-        'email',
-        'display_name',
-    ]
 
     @staticmethod
     def has_read_permission(request):

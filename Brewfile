@@ -1,9 +1,6 @@
 tap 'caskroom/cask'
-tap 'homebrew/bundle'
 
+cask 'docker'
 cask 'postgres'
 cask 'postico'
-
-brew 'postgis'
-brew 'gdal'
-brew 'libgeoip'
+cask 'kitematic'

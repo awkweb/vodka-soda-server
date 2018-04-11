@@ -1,4 +1,4 @@
-from server.settings.base import *
+from .base import *
 
 ALLOWED_HOSTS = ['*']
 DEBUG = True
