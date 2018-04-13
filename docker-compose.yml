@@ -4,7 +4,7 @@ services:
         container_name: django
         restart: always
         build: ./django
-        command: uwsgi --ini uwsgi.ini
+        command: uwsgi --ini uwsgi.ini --py-autoreload 1
         expose:
             - 8000
         volumes:

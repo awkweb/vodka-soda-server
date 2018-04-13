@@ -1,0 +1,27 @@
+django:
+    image: django
+    cpu_shares: 100
+    mem_limit: 262144000
+    command: uwsgi --ini uwsgi.ini
+    ports:
+        - 8000:8000
+    volumes:
+        - ./django:/home/django
+    environment:
+        - DJ_ENV=$DJ_ENV
+        - DJ_DB_NAME=$DJ_DB_NAME
+        - DJ_DB_USER=$DJ_DB_USER
+        - DJ_DB_PASSWORD=$DJ_DB_PASSWORD
+        - DJ_DB_HOST=$DJ_DB_HOST
+        - DJ_DB_PORT=$DJ_DB_PORT
+        - DJ_SECRET_KEY=$DJ_SECRET_KEY
+        - DJ_SOCIAL_AUTH_FACEBOOK_KEY=$DJ_SOCIAL_AUTH_FACEBOOK_KEY
+        - DJ_SOCIAL_AUTH_FACEBOOK_SECRET=$DJ_SOCIAL_AUTH_FACEBOOK_SECRET
+nginx:
+    image: nginx
+    cpu_shares: 100
+    mem_limit: 262144000
+    ports:
+        - 80:80
+    volumes_from:
+        - django

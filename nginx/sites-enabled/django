@@ -13,6 +13,15 @@ server {
         alias /home/django/static/admin/;
     }
 
+    location /static/gis/ {
+        types {
+            text/css        css;
+            text/javascript js;
+            image/png	    png;
+        }
+        alias /home/django/static/gis/;
+    }
+
     location /static/rest_framework/ {
         types {
             text/css        css;
