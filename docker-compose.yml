@@ -1,14 +1,9 @@
 version: '2'
 services:
     django:
-        container_name: django
-        restart: always
         build: ./django
         command: uwsgi --ini uwsgi.ini --py-autoreload 1
-        expose:
-            - 8000
-        volumes:
-            - ./django:/home/django
+        container_name: django
         environment:
             - DJ_ENV=$DJ_ENV
             - DJ_DB_NAME=$DJ_DB_NAME
@@ -19,13 +14,18 @@ services:
             - DJ_SECRET_KEY=$DJ_SECRET_KEY
             - DJ_SOCIAL_AUTH_FACEBOOK_KEY=$DJ_SOCIAL_AUTH_FACEBOOK_KEY
             - DJ_SOCIAL_AUTH_FACEBOOK_SECRET=$DJ_SOCIAL_AUTH_FACEBOOK_SECRET
-    nginx:
-        container_name: nginx
+        expose:
+            - 8000
         restart: always
+        volumes:
+            - ./django:/home/django
+    nginx:
         build: ./nginx
+        container_name: nginx
+        depends_on:
+            - django
         ports:
             - 80:80
+        restart: always
         volumes_from:
-            - django
-        depends_on:
             - django

@@ -1,27 +1,39 @@
-django:
-    image: django
-    cpu_shares: 100
-    mem_limit: 262144000
-    command: uwsgi --ini uwsgi.ini
-    ports:
-        - 8000:8000
-    volumes:
-        - ./django:/home/django
-    environment:
-        - DJ_ENV=$DJ_ENV
-        - DJ_DB_NAME=$DJ_DB_NAME
-        - DJ_DB_USER=$DJ_DB_USER
-        - DJ_DB_PASSWORD=$DJ_DB_PASSWORD
-        - DJ_DB_HOST=$DJ_DB_HOST
-        - DJ_DB_PORT=$DJ_DB_PORT
-        - DJ_SECRET_KEY=$DJ_SECRET_KEY
-        - DJ_SOCIAL_AUTH_FACEBOOK_KEY=$DJ_SOCIAL_AUTH_FACEBOOK_KEY
-        - DJ_SOCIAL_AUTH_FACEBOOK_SECRET=$DJ_SOCIAL_AUTH_FACEBOOK_SECRET
-nginx:
-    image: nginx
-    cpu_shares: 100
-    mem_limit: 262144000
-    ports:
-        - 80:80
-    volumes_from:
-        - django
+version: '2'
+services:
+    django:
+        command: uwsgi --ini uwsgi.ini
+        cpu_shares: 100
+        environment:
+            - DJ_ENV=$DJ_ENV
+            - DJ_DB_NAME=$DJ_DB_NAME
+            - DJ_DB_USER=$DJ_DB_USER
+            - DJ_DB_PASSWORD=$DJ_DB_PASSWORD
+            - DJ_DB_HOST=$DJ_DB_HOST
+            - DJ_DB_PORT=$DJ_DB_PORT
+            - DJ_SECRET_KEY=$DJ_SECRET_KEY
+            - DJ_SOCIAL_AUTH_FACEBOOK_KEY=$DJ_SOCIAL_AUTH_FACEBOOK_KEY
+            - DJ_SOCIAL_AUTH_FACEBOOK_SECRET=$DJ_SOCIAL_AUTH_FACEBOOK_SECRET
+        image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/django
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: vodka-soda
+                awslogs-region: us-east-1
+                awslogs-stream-prefix: django
+        mem_limit: 262144000
+        ports:
+            - 8000:8000
+    nginx:
+        cpu_shares: 100
+        image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/nginx
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: vodka-soda
+                awslogs-region: us-east-1
+                awslogs-stream-prefix: nginx
+        mem_limit: 262144000
+        ports:
+            - 80:80
+        volumes_from:
+            - django

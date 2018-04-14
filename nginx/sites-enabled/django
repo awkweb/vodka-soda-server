@@ -4,6 +4,11 @@ upstream django {
 
 server {
 
+	location = /favicon.ico {
+	    access_log off;
+	    log_not_found off;
+	}
+
     location /static/admin/ {
         types {
             text/css        css;

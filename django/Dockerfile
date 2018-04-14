@@ -27,3 +27,5 @@ RUN pip install -r requirements.txt
 
 # Copy over remaining code
 ADD . /home/django/
+
+VOLUME /home/django

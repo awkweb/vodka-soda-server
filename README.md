@@ -71,24 +71,66 @@ Whenever you make changes to a model, the database needs to be kept in sync.
 
 See [Django Migrations Worflow](https://docs.djangoproject.com/en/2.0/topics/migrations/#workflow) for more info.
 
-## Deploying to production
+## Set Up Production Environment
 
-TBD
+1) Create RDS Postgres instance
 
-Add additional environment variables:
+2) Add production environment variables to `.env`:
 
 ```bash
-export AWS_ACCESS_KEY_ID=AMAEPJCKIAIPOZTEM74G
-export AWS_SECRET_ACCESS_KEY=C9Y3GI46LrBMnT/jJCsE561cEiAbWn/iU1FPw9hx
+# DJANGO APP KEYS
+
+export DJ_ENV=prod
+export DJ_DB_NAME=something
+export DJ_DB_USER=root
+export DJ_DB_PASSWORD=zsRqfjJdDVAxhUewsqnTCxlslr
+export DJ_DB_HOST=something.cxsbe1vrwmpg.us-east-1.rds.amazonaws.com
+export DJ_DB_PORT=5432
+export DJ_SECRET_KEY=+cg9iso$a55f3ay&)pdg3k&=lq_c*55j7oyuib=a(pi#2$oj^0
+export DJ_SOCIAL_AUTH_FACEBOOK_KEY=234928371610299
+export DJ_SOCIAL_AUTH_FACEBOOK_SECRET=3731939d837s7b1b0b772a64c7570edb
+
+# IAM ACCESS KEYS
+
+export AWS_ACCESS_KEY_ID=AKIATEMMAIEPJOZC74GP
+export AWS_SECRET_ACCESS_KEY=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
+
 ```
+
+3) Build, tag, and push Docker images to [Amazon Elastic Container Registry](https://console.aws.amazon.com/ecs/home?region=us-east-1#/repositories)
+
+4) Update `image` paths in `aws-compose.yml` (from now on you may run `push-aws-ecr.sh` to build, tag, and push all images)
+
+5) [Create a new keypair on EC2](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:sort=keyName)
+
+6) [Configure `ecs-cli`](https://docker-curriculum.com/#aws-ecs) with cluster info
+
+7) Run deploy script
+
+```bash
+> bash deploy-aws-ecs.sh
+```
+
+If all went as planned, you can navigate to the running site.
 
 ## Helpful links
 
+Docker & ECS:
+
++ [Take Containers From Development To Amazon ECS](https://docs.bitnami.com/aws/how-to/ecs-rds-tutorial/)
 + [Docker for Beginners](https://docker-curriculum.com)
+
+Django REST Framework & Social Auth:
+
 + [Django OAuth Toolkit with Django REST Framework Tutorial](https://django-oauth-toolkit.readthedocs.io/en/latest/rest-framework/rest-framework.html)
 + [Django REST Framework Social Oauth2 Facebook Example](https://github.com/PhilipGarnero/django-rest-framework-social-oauth2#facebook-example)
 + [dry-rest-permissions](https://github.com/dbkaplan/dry-rest-permissions)
-+ [GeoDjango](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/)
 + [Facebook Developer Access Tokens](https://developers.facebook.com/tools/accesstoken/)
 + [Facebook App Dashboard](https://developers.facebook.com/apps/234319953810299/dashboard/)
+
+Other:
+
++ [GeoDjango](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/)
 + [Tinder API](https://gist.github.com/rtt/10403467)
+
+
