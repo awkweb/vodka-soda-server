@@ -99,7 +99,7 @@ export AWS_SECRET_ACCESS_KEY=C961cFPwIYE5EMnT/jJCs3GAbWn/iU14i9hx6LrB
 
 3) Build, tag, and push Docker images to [Amazon Elastic Container Registry](https://console.aws.amazon.com/ecs/home?region=us-east-1#/repositories)
 
-4) Update `image` paths in `aws-compose.yml` (from now on you may run `push-aws-ecr.sh` to build, tag, and push all images)
+4) Update `image` paths in `aws-compose.yml` (from now on you may use `bash scripts/push-aws-ecr.sh` to build, tag, and push all images)
 
 5) [Create a new keypair on EC2](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:sort=keyName)
 
@@ -108,7 +108,7 @@ export AWS_SECRET_ACCESS_KEY=C961cFPwIYE5EMnT/jJCs3GAbWn/iU14i9hx6LrB
 7) Run deploy script
 
 ```bash
-> bash deploy-aws-ecs.sh
+> bash scripts/deploy-aws-ecs.sh
 ```
 
 If all went as planned, you can navigate to the running site.
