@@ -103,13 +103,11 @@ export AWS_SECRET_ACCESS_KEY=C961cFPwIYE5EMnT/jJCs3GAbWn/iU14i9hx6LrB
 
 5) [Create a new keypair on EC2](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:sort=keyName)
 
-6) [Configure `ecs-cli`](https://docker-curriculum.com/#aws-ecs) with cluster info
+6) Add RDS's `vpc` (`--vpc vpc_id`) and `subnets` (`--subnets subnet_1,subnet_2`) to `scripts/setup-aws-ecs.sh`
 
-7) Run deploy script
+7) [Configure `ecs-cli`](https://docker-curriculum.com/#aws-ecs) with cluster info by running `bash scripts/setup-aws-ecs.sh`
 
-```bash
-> bash scripts/deploy-aws-ecs.sh
-```
+8) Run deploy script `bash scripts/deploy-aws-ecs.sh` ([update RDS's security group](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html#CHAP_SettingUp.SecurityGroup) to accept inbound TCP connections from ECS's security group)
 
 If all went as planned, you can navigate to the running site.
 

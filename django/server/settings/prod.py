@@ -1,5 +1,5 @@
 from .base import *
 
-# ALLOWED_HOSTS = [
-#   'vodkasoda.com',
-# ]
+ALLOWED_HOSTS = [
+  '*',
+]

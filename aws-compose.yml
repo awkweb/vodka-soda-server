@@ -1,8 +1,8 @@
 version: '2'
 services:
     django:
-        command: uwsgi --ini uwsgi.ini
         cpu_shares: 100
+        entrypoint: bash ./docker-entrypoint.sh
         environment:
             - DJ_ENV=$DJ_ENV
             - DJ_DB_NAME=$DJ_DB_NAME

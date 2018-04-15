@@ -21,6 +21,7 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserChangeForm(UserChangeForm):
     bio = forms.CharField(
         max_length=140,
+        required=False,
         widget=forms.Textarea,
     )
 

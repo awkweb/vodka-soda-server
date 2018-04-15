@@ -24,6 +24,3 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-# temporary
-server/api/migrations/

@@ -5,9 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from dry_rest_permissions.generics import DRYPermissions
 
-from server.api.serializers import (
-    UserPhotoSerializer, UserSerializer
-)
+from server.api.serializers import UserPhotoSerializer, UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
