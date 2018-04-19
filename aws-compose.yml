@@ -1,6 +1,6 @@
 version: '2'
 services:
-    django:
+    api:
         cpu_shares: 100
         entrypoint: bash ./docker-entrypoint.sh
         environment:
@@ -13,16 +13,31 @@ services:
             - DJ_SECRET_KEY=$DJ_SECRET_KEY
             - DJ_SOCIAL_AUTH_FACEBOOK_KEY=$DJ_SOCIAL_AUTH_FACEBOOK_KEY
             - DJ_SOCIAL_AUTH_FACEBOOK_SECRET=$DJ_SOCIAL_AUTH_FACEBOOK_SECRET
-        image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/django
+        image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/api
         logging:
             driver: awslogs
             options:
                 awslogs-group: vodka-soda
                 awslogs-region: us-east-1
-                awslogs-stream-prefix: django
+                awslogs-stream-prefix: api
         mem_limit: 262144000
         ports:
             - 8000:8000
+    web:
+        cpu_shares: 100
+        entrypoint: bash ./docker-entrypoint.sh
+        environment:
+            - FLASK_APP=$FLASK_APP
+        image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/web
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: vodka-soda
+                awslogs-region: us-east-1
+                awslogs-stream-prefix: web
+        mem_limit: 262144000
+        ports:
+            - 5000:5000
     nginx:
         cpu_shares: 100
         image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/nginx
@@ -35,5 +50,7 @@ services:
         mem_limit: 262144000
         ports:
             - 80:80
+            - 81:81
         volumes_from:
-            - django
+            - api
+            - web

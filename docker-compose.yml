@@ -1,9 +1,9 @@
 version: '2'
 services:
-    django:
-        build: ./django
+    api:
+        build: ./api
         command: uwsgi --ini uwsgi.ini --py-autoreload 1
-        container_name: django
+        container_name: api
         environment:
             - DJ_ENV=$DJ_ENV
             - DJ_DB_NAME=$DJ_DB_NAME
@@ -18,14 +18,28 @@ services:
             - 8000
         restart: always
         volumes:
-            - ./django:/home/django
+            - ./api:/home/api
+    web:
+        build: ./web
+        command: uwsgi --ini uwsgi.ini --py-autoreload 1
+        container_name: web
+        environment:
+            - FLASK_APP=$FLASK_APP
+        expose:
+            - 5000
+        restart: always
+        volumes:
+            - ./web:/home/web
     nginx:
         build: ./nginx
         container_name: nginx
         depends_on:
-            - django
+            - api
+            - web
         ports:
             - 80:80
+            - 9055:9055
         restart: always
         volumes_from:
-            - django
+            - api
+            - web

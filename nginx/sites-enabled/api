@@ -1,13 +1,10 @@
-upstream django {
-    server unix:/home/django/server.sock;
+upstream api {
+    server unix:/home/api/server.sock;
 }
 
 server {
 
-	location = /favicon.ico {
-	    access_log off;
-	    log_not_found off;
-	}
+    listen 9055;
 
     location /static/admin/ {
         types {
@@ -15,7 +12,7 @@ server {
             text/javascript js;
             image/svg+xml	svg;
         }
-        alias /home/django/static/admin/;
+        alias /home/api/static/admin/;
     }
 
     location /static/gis/ {
@@ -24,7 +21,7 @@ server {
             text/javascript js;
             image/png	    png;
         }
-        alias /home/django/static/gis/;
+        alias /home/api/static/gis/;
     }
 
     location /static/rest_framework/ {
@@ -33,16 +30,16 @@ server {
             text/javascript js;
             image/png	    png;
         }
-        alias /home/django/static/rest_framework/;
+        alias /home/api/static/rest_framework/;
     }
 
     location /static/ {
-        alias /home/django/static/;
+        alias /home/api/static/;
     }
 
     location / {
 		include		uwsgi_params;
-		uwsgi_pass  django;
+		uwsgi_pass  api;
     }
 
 }

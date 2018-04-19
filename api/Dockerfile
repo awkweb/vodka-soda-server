@@ -8,8 +8,6 @@ RUN `# Update package list`         && \
                                        \
     `# Install development tools`   && \
      apt-get install -yqq              \
-        git                            \
-        nano                           \
         libproj-dev                    \
         libgdal-dev                    \
         gdal-bin                    && \
@@ -18,14 +16,14 @@ RUN `# Update package list`         && \
      apt-get clean
 
 # Create dir for code
-RUN mkdir /home/django
-WORKDIR /home/django
+RUN mkdir /home/api
+WORKDIR /home/api
 
 # Copy over Python requirements and install
-ADD requirements.txt /home/django/
+ADD requirements.txt /home/api/
 RUN pip install -r requirements.txt
 
 # Copy over remaining code
-ADD . /home/django/
+ADD . /home/api/
 
-VOLUME /home/django
+VOLUME /home/api
