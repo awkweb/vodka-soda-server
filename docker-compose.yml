@@ -38,7 +38,6 @@ services:
             - web
         ports:
             - 80:80
-            - 9055:9055
         restart: always
         volumes_from:
             - api

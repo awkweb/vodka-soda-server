@@ -4,7 +4,13 @@ upstream api {
 
 server {
 
-    listen 9055;
+    listen      80;
+    server_name api.*;
+
+    location = /favicon.ico {
+	    access_log      off;
+	    log_not_found   off;
+	}
 
     location /static/admin/ {
         types {
@@ -31,10 +37,6 @@ server {
             image/png	    png;
         }
         alias /home/api/static/rest_framework/;
-    }
-
-    location /static/ {
-        alias /home/api/static/;
     }
 
     location / {

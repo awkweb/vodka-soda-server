@@ -38,6 +38,14 @@ export DJ_SOCIAL_AUTH_FACEBOOK_SECRET=3731939d837s7b1b0b772a64c7570edb
 export FLASK_APP=app.py
 ```
 
+Update `/etc/hosts` by adding:
+
+```bash
+0.0.0.0			api.vodkasoda
+0.0.0.0			www.vodkasoda
+0.0.0.0			vodkasoda
+```
+
 Snag the repo, start Docker, and build the containers:
 
 ```bash

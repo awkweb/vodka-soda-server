@@ -4,16 +4,33 @@ upstream web {
 
 server {
 
-    listen 80;
+    listen      80 default_server;
+    server_name _;
 
 	location = /favicon.ico {
-	    access_log off;
-	    log_not_found off;
+	    access_log      off;
+	    log_not_found   off;
 	}
+
+    location /static/ {
+        types {
+            text/css        css;
+            text/javascript js;
+            image/svg+xml	svg;
+        }
+        alias /home/web/static/;
+    }
 
     location / {
 		include		uwsgi_params;
 		uwsgi_pass  web;
     }
+
+}
+
+server {
+
+    server_name www.*;
+    return 301  $scheme://$1$request_uri;
 
 }
