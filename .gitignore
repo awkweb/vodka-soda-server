@@ -2,6 +2,7 @@
 .idea
 .env
 vodka-soda.pem
+nginx/certs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

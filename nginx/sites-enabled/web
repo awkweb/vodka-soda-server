@@ -4,8 +4,13 @@ upstream web {
 
 server {
 
-    listen      80 default_server;
+    listen      443 default_server ssl;
     server_name _;
+
+    if ($host ~* ^www\.(.*)) {
+        set $host_without_www $1;
+        rewrite ^(.*) https://$host_without_www$1 permanent;
+    }
 
 	location = /favicon.ico {
 	    access_log      off;
@@ -30,7 +35,16 @@ server {
 
 server {
 
-    server_name www.*;
-    return 301  $scheme://$1$request_uri;
+    listen      [::]:80;
+	listen      80 default_server;
+	server_name _;
+	return      301 https://$host$request_uri;
+
+}
+
+server {
+
+  server_name   www.*;
+  return        301 https://$1$request_uri;
 
 }

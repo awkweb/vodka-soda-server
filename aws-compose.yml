@@ -50,6 +50,7 @@ services:
         mem_limit: 262144000
         ports:
             - 80:80
+            - 443:443
         volumes_from:
             - api
             - web

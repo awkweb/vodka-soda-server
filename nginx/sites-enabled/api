@@ -4,7 +4,7 @@ upstream api {
 
 server {
 
-    listen      80;
+    listen      443 ssl;
     server_name api.*;
 
     location = /favicon.ico {
@@ -43,5 +43,14 @@ server {
 		include		uwsgi_params;
 		uwsgi_pass  api;
     }
+
+}
+
+server {
+
+    listen      [::]:80;
+	listen      80;
+    server_name api.*;
+	return 301  https://$host$request_uri;
 
 }

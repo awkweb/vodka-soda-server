@@ -41,9 +41,7 @@ export FLASK_APP=app.py
 Update `/etc/hosts` by adding:
 
 ```bash
-0.0.0.0			api.vodkasoda
-0.0.0.0			www.vodkasoda
-0.0.0.0			vodkasoda
+0.0.0.0			vodkasoda.local api.vodkasoda.local www.vodkasoda.local
 ```
 
 Snag the repo, start Docker, and build the containers:
@@ -62,7 +60,7 @@ Apply database migrations, create superuser, and generate static files (for admi
 > docker-compose run api python manage.py collectstatic
 ```
 
-If everything worked as planned, you should be able to `docker-compose up` and access the admin app.
+Generate a local wildcard cert by running `bash scripts/generate-wildcard-cert.sh` and entering `vodkasoda.local` for root domain. Add the generated `certs` dir to `nginx/certs`. If everything worked as planned, you should be able to `docker-compose up` and access the admin app.
 
 ```bash
 > docker-compose up -d
@@ -73,7 +71,7 @@ CONTAINER ID        IMAGE                    COMMAND                  CREATED   
 f2bc789461bf        vodkasodaserver_api      "uwsgi --ini uwsgi.i…"   1 minute ago       Up 1 minute       8000/tcp             api
 ```
 
-Go to the [admin site](http://0.0.0.0/admin/oauth2_provider/application/add/) to create a new `Application` for the API to connect to.
+Go to the [admin site](https://api.vodkasoda/admin/oauth2_provider/application/add/) to create a new `Application` for the API to connect to.
 
 ## Creating/Updating DB Models
 
@@ -152,6 +150,8 @@ Django REST Framework & Social Auth:
 
 Other:
 
++ [Certificates for localhost](https://letsencrypt.org/docs/certificates-for-localhost/)
++ [Make Chrome Accept a Self-Signed Certificate (on OSX)](https://www.accuweaver.com/2014/09/19/make-chrome-accept-a-self-signed-certificate-on-osx/)
 + [GeoDjango](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/)
 + [Tinder API](https://gist.github.com/rtt/10403467)
 
