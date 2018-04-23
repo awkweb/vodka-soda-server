@@ -20,8 +20,9 @@ http {
 	# SSL Settings
 	##
 
-    ssl_certificate             /etc/nginx/certs/vodkasoda.crt;
-    ssl_certificate_key         /etc/nginx/certs/vodkasoda.key;
+    ssl_certificate             ${SSL_CERTIFICATE};
+    ssl_certificate_key         ${SSL_CERTIFICATE_KEY};
+    ssl_ciphers                 HIGH+kEECDH+AESGCM:HIGH+kEECDH:HIGH+kEDH:HIGH:!aNULL;
 	ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
 	ssl_prefer_server_ciphers   on;
 

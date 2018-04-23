@@ -32,7 +32,11 @@ services:
             - ./web:/home/web
     nginx:
         build: ./nginx
+        command: bash -c "envsubst < /etc/nginx/nginx.tmpl > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
         container_name: nginx
+        environment:
+            - SSL_CERTIFICATE=$SSL_CERTIFICATE
+            - SSL_CERTIFICATE_KEY=$SSL_CERTIFICATE_KEY
         depends_on:
             - api
             - web
@@ -40,6 +44,8 @@ services:
             - 80:80
             - 443:443
         restart: always
+        volumes:
+            - ./nginx/nginx.tmpl:/etc/nginx/nginx.tmpl
         volumes_from:
             - api
             - web

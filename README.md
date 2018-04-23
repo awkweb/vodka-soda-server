@@ -36,12 +36,17 @@ export DJ_SOCIAL_AUTH_FACEBOOK_SECRET=3731939d837s7b1b0b772a64c7570edb
 # FLASK APP KEYS
 
 export FLASK_APP=app.py
+
+# LETS ENCRYPT CERTIFICATE PATHS
+
+export SSL_CERTIFICATE=/etc/nginx/certs/local/vodkasoda.crt
+export SSL_CERTIFICATE_KEY=/etc/nginx/certs/local/vodkasoda.key
 ```
 
 Update `/etc/hosts` by adding:
 
 ```bash
-0.0.0.0			vodkasoda.local api.vodkasoda.local www.vodkasoda.local
+0.0.0.0 vodkasoda.local api.vodkasoda.local www.vodkasoda.local
 ```
 
 Snag the repo, start Docker, and build the containers:
@@ -112,6 +117,10 @@ export FLASK_APP=app.py
 export AWS_ACCESS_KEY_ID=AKIATEMMAIEPJOZC74GP
 export AWS_SECRET_ACCESS_KEY=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
 
+# LETS ENCRYPT CERTIFICATE PATHS
+
+export SSL_CERTIFICATE=/etc/nginx/certs/letsencrypt/name.crt
+export SSL_CERTIFICATE_KEY=/etc/nginx/certs/letsencrypt/name.key
 ```
 
 3) Build, tag, and push Docker images to [Amazon Elastic Container Registry](https://console.aws.amazon.com/ecs/home?region=us-east-1#/repositories)
@@ -126,7 +135,7 @@ export AWS_SECRET_ACCESS_KEY=C961cFPwIYE5EMnT/jJCs3GAbWn/iU14i9hx6LrB
 
 8) Run deploy script `bash scripts/deploy-aws-ecs.sh` ([update RDS's security group](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html#CHAP_SettingUp.SecurityGroup) to accept inbound TCP connections from ECS's security group)
 
-If all went as planned, you can navigate to the running site.
+If all went as planned, you can navigate to the running site. (Also, need to open up ECS security group to listen for HTTPS.)
 
 ## Helpful links
 
@@ -150,6 +159,7 @@ Django REST Framework & Social Auth:
 
 Other:
 
++ [Generating a production certificate with Let's Encrypt & ZeroSSL](https://zerossl.com)
 + [Certificates for localhost](https://letsencrypt.org/docs/certificates-for-localhost/)
 + [Make Chrome Accept a Self-Signed Certificate (on OSX)](https://www.accuweaver.com/2014/09/19/make-chrome-accept-a-self-signed-certificate-on-osx/)
 + [GeoDjango](https://docs.djangoproject.com/en/2.0/ref/contrib/gis/)

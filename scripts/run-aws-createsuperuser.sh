@@ -11,9 +11,9 @@ read -p "Email: " email
 read -sp "Password: " password
 read -sp "Confirm password: " confirmPassword
 
-if [ $password == $confirmPassword ]; then
+if [ ${#password} -ge 5 ] && [ $password == $confirmPassword ]; then
     echo "Creating superuser"
-    ecs-cli compose --file aws-compose.yml run django "python manage.py createsu $username $email $password"
+    ecs-cli compose --file aws-compose.yml run api "python manage.py createsu $username $email $password"
 else
     echo "Passwords do not match :("
 fi

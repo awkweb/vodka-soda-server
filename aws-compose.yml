@@ -40,6 +40,10 @@ services:
             - 5000:5000
     nginx:
         cpu_shares: 100
+        entrypoint: bash ./etc/nginx/docker-entrypoint.sh
+        environment:
+            - SSL_CERTIFICATE=$SSL_CERTIFICATE
+            - SSL_CERTIFICATE_KEY=$SSL_CERTIFICATE_KEY
         image: 102953801091.dkr.ecr.us-east-1.amazonaws.com/nginx
         logging:
             driver: awslogs
